@@ -1,5 +1,5 @@
 CLIENT_ID="reddit app id"
 CLIENT_SECRET="reddit app secret"
-USER_AGENT="reddit app name"
-USERNAME="reddit username"
-PASSWORD="reddit password"
+CLIENT_USER_AGENT="reddit app name"
+REDDIT_USERNAME="reddit username"
+REDDIT_PASSWORD="reddit password"
