@@ -1,0 +1,4 @@
+name: dalle2-scraper
+channels:
+  - defaults
+prefix: /Users/d12z/miniconda3/envs/dalle2-scraper
