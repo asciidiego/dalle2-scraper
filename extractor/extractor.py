@@ -56,3 +56,17 @@ for _id in openai_ids:
         f.write("\n")
 
 
+# Verify if item is in Firestore
+import firebase_admin
+import firebase_admin.firestore as firestore
+from firebase_admin import credentials as firebase_credentials
+
+admin_sdk_path = os.getenv("FIREBASE_CREDENTIAL_CERTIFICATE_PATH")
+cred = firebase_credentials.Certificate(admin_sdk_path)
+app = firebase_admin.initialize_app(cred)
+db = firestore.client()
+
+image_collection = db.collection("images")
+image_document = {}
+image_collection.add(image_document)
+
