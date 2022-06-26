@@ -3,6 +3,16 @@
 This is a crawler and scraper Python program that extracts generations
 done with DALL-E 2.
 
+# Usage
+
+Create a `.env` file at the root of the repository and execute any of the
+scripts under the `extractor` folder using the standard Python binary:
+
+```bash
+# For example, to store items in Algolia...
+python extractor/algolia_test.py
+```
+
 ## How does it work?
 
 This scraper uses the official Reddit and OpenAI APIs. Reddit has an
