@@ -49,6 +49,7 @@ dependencies:
   - xz=5.2.5=h1a28f6b_1
   - zlib=1.2.12=h5a0b063_2
   - pip:
+    - algoliasearch==2.6.2
     - cachecontrol==0.12.11
     - cachetools==5.2.0
     - charset-normalizer==2.0.12
