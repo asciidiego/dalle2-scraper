@@ -68,17 +68,23 @@ dependencies:
     - grpcio-status==1.47.0
     - httplib2==0.20.4
     - idna==3.3
+    - iniconfig==1.1.1
     - msgpack==1.0.4
+    - packaging==21.3
+    - pluggy==1.0.0
     - praw==7.6.0
     - prawcore==2.3.0
     - proto-plus==1.20.6
     - protobuf==3.20.1
+    - py==1.11.0
     - pyasn1==0.4.8
     - pyasn1-modules==0.2.8
     - pyparsing==3.0.9
+    - pytest==7.1.2
     - python-dotenv==0.20.0
     - requests==2.28.0
     - rsa==4.8
+    - tomli==2.0.1
     - update-checker==0.18.0
     - uritemplate==4.1.1
     - urllib3==1.26.9
