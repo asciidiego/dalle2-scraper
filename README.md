@@ -21,6 +21,12 @@ Run PyTest.
 python -m pytest
 ```
 
+## Testing with a file watcher (`entr`)
+
+```sh
+ls test/*.py extractor/**/*.py | entr python -m pytest
+```
+
 ## How does it work?
 
 This scraper uses the official Reddit and OpenAI APIs. Reddit has an
