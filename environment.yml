@@ -3,7 +3,6 @@ channels:
   - defaults
 dependencies:
   - appdirs=1.4.4
-  - appnope=0.1.2
   - asttokens=2.0.5
   - attrs=21.4.0
   - backcall=0.2.0
@@ -16,7 +15,6 @@ dependencies:
   - executing=0.8.3
   - ipython=8.3.0
   - jedi=0.18.1
-  - libcxx=12.0.0
   - libffi=3.4.2
   - matplotlib-inline=0.1.2
   - mypy_extensions=0.4.3
