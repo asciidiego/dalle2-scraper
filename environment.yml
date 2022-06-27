@@ -2,89 +2,14 @@ name: dalle2-scraper
 channels:
   - defaults
 dependencies:
-  - appdirs=1.4.4
-  - asttokens=2.0.5
-  - attrs=21.4.0
-  - backcall=0.2.0
-  - black=19.10b0
-  - bzip2=1.0.8
-  - ca-certificates=2022.4.26
-  - certifi=2022.5.18.1
-  - click=8.0.4
-  - decorator=5.1.1
-  - executing=0.8.3
-  - ipython=8.3.0
-  - jedi=0.18.1
-  - libffi=3.4.2
-  - matplotlib-inline=0.1.2
-  - mypy_extensions=0.4.3
-  - ncurses=6.3
-  - openssl=1.1.1o
-  - parso=0.8.3
-  - pathspec=0.7.0
-  - pexpect=4.8.0
-  - pickleshare=0.7.5
-  - pip=21.2.4
-  - prompt-toolkit=3.0.20
-  - ptyprocess=0.7.0
-  - pure_eval=0.2.2
-  - pygments=2.11.2
-  - python=3.9.12
-  - readline=8.1.2
-  - regex=2022.3.15
-  - setuptools=61.2.0
-  - six=1.16.0
-  - sqlite=3.38.3
-  - stack_data=0.2.0
-  - tk=8.6.12
-  - toml=0.10.2
-  - traitlets=5.1.1
-  - typed-ast=1.4.3
-  - typing_extensions=4.1.1
-  - tzdata=2022a
-  - wcwidth=0.2.5
-  - wheel=0.37.1
-  - xz=5.2.5
-  - zlib=1.2.12
-  - pip:
+  - pip
+  - ipython
+  - black
+  - python=3.9
+  pip:
     - algoliasearch==2.6.2
-    - cachecontrol==0.12.11
-    - cachetools==5.2.0
-    - charset-normalizer==2.0.12
     - firebase-admin==5.2.0
-    - google-api-core==2.8.2
-    - google-api-python-client==2.51.0
-    - google-auth==2.8.0
-    - google-auth-httplib2==0.1.0
-    - google-cloud-core==2.3.1
-    - google-cloud-firestore==2.5.3
-    - google-cloud-storage==2.4.0
-    - google-crc32c==1.3.0
-    - google-resumable-media==2.3.3
-    - googleapis-common-protos==1.56.3
-    - grpcio==1.47.0
-    - grpcio-status==1.47.0
-    - httplib2==0.20.4
-    - idna==3.3
-    - iniconfig==1.1.1
-    - msgpack==1.0.4
-    - packaging==21.3
-    - pluggy==1.0.0
-    - praw==7.6.0
-    - prawcore==2.3.0
-    - proto-plus==1.20.6
-    - protobuf==3.20.1
-    - py==1.11.0
-    - pyasn1==0.4.8
-    - pyasn1-modules==0.2.8
-    - pyparsing==3.0.9
-    - pytest==7.1.2
     - python-dotenv==0.20.0
-    - requests==2.28.0
-    - rsa==4.8
-    - tomli==2.0.1
-    - update-checker==0.18.0
-    - uritemplate==4.1.1
-    - urllib3==1.26.9
-    - websocket-client==1.3.3
+    - praw==7.6.0
+    - pytest==7.1.2
 prefix: /Users/d12z/miniconda3/envs/dalle2-scraper
