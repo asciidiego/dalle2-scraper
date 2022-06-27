@@ -5,13 +5,17 @@ done with DALL-E 2.
 
 # Usage
 
-Create a `.env` file at the root of the repository and execute any of the
-scripts under the `extractor` folder using the standard Python binary:
+Create a `.env` file at the root of the repository and execute the extraction
+script:
 
 ```bash
-# For example, to store items in Algolia...
-python extractor/algolia_test.py
+python extract.py
 ```
+
+As of now, that script *only* stores items in Algolia; it does not crawl or
+extracts from Reddit/OpenAI yet.  Also, to submit mock items, you need a JSON
+file containing the data.  To see how that data looks, see the "How does it
+work?" section below.
 
 # Testing
 
