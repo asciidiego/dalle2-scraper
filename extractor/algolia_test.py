@@ -1,6 +1,5 @@
 import json
 import os
-from attr import attr
 
 from dotenv import load_dotenv
 from algoliasearch.search_client import SearchClient
