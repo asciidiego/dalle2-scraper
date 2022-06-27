@@ -13,6 +13,14 @@ scripts under the `extractor` folder using the standard Python binary:
 python extractor/algolia_test.py
 ```
 
+# Testing
+
+Run PyTest.
+
+```sh
+python -m pytest
+```
+
 ## How does it work?
 
 This scraper uses the official Reddit and OpenAI APIs. Reddit has an
