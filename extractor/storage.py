@@ -17,4 +17,12 @@ class GenerationRepository(ABC):
     def store_generation(self, generation):
         "Store an instance of a generation in a data source (e.g. Algolia)."
 
-        pass
+        required_attributes = [
+            "image_path",
+            "generation_prompt",
+            "author_name",
+            "thumbnail_path",
+        ]
+
+        for attribute in required_attributes:
+            assert attribute in generation, f"item has no {attribute} attribute."
