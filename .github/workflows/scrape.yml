@@ -1,0 +1,44 @@
+name: run extractor on a schedule
+
+on:
+  schedule:
+    - cron: '15 * * * *'  # (see https://crontab.guru)
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash -l {0}
+    steps:
+    - uses: actions/checkout@v3
+    - name: Setup Miniconda
+      uses: conda-incubator/setup-miniconda@v2.1.1
+      with:
+        activate-environment: dalle2-scraper
+        environment-file: environment.yml
+        python-version: 3.9
+    - name: Get secrets
+      env:
+        CLIENT_ID=${{secrets.CLIENT_ID}}
+        CLIENT_SECRET=${{secrets.CLIENT_SECRET}}
+        CLIENT_USER_AGENT="d${{secrets.CLIENT_USER_AGENT}}
+        REDDIT_USERNAME=${{secrets.REDDIT_USERNAME}}
+        REDDIT_PASSWORD=${{secrets.REDDIT_PASSWORD}}
+        WEBFLOW_API_TOKEN=${{secrets.WEBFLOW_API_TOKEN}}
+        ALGOLIA_APP_ID=${{secrets.ALGOLIA_APP_ID}}
+        ALGOLIA_API_KEY=${{secrets.ALGOLIA_API_KEY}}
+        ALGOLIA_STORAGE_INDEX=${{secrets.ALGOLIA_STORAGE_INDEX}}
+
+        # Storing the firebase credential certificate path in a secret is useless,
+        # since the `.json` file will not be in the ci/cd virtual machine.
+
+        # We may need to figure out how to upload files that have sensitive information
+        # to the virtual machine using Github or another secrets manager such as AWS
+        # FIREBASE_CREDENTIAL_CERTIFICATE_PATH=${{secrets.FIREBASE_CREDENTIAL_CERTIFICATE_PATH}}
+    - name: scrape
+      run: |
+        python extract.py
