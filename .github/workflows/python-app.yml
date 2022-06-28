@@ -27,5 +27,6 @@ jobs:
         python-version: 3.9
     - name: conda
       run: |
+        conda activate dalle2-scraper
         conda info
         conda list
