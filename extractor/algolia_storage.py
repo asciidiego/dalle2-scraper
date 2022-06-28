@@ -27,6 +27,6 @@ class AlgoliaGenerationRepository(GenerationRepository):
         # required attribute assertion
         super().store_generation(generation)
 
-        print(f"Saving object to Algolia:\n{generation=}\n")
+        print(f"Saving generation to Algolia. ID = {generation['objectID']}\n")
 
         self._generation_index.save_object(generation)
