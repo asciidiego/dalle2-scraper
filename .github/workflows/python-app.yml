@@ -22,6 +22,7 @@ jobs:
     - name: Setup Miniconda
       uses: conda-incubator/setup-miniconda@v2.1.1
       with:
+        activate-environment: dalle2-scraper
         environment-file: environment.yml
         python-version: 3.9
     - name: conda
