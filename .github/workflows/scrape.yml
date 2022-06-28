@@ -5,7 +5,7 @@ on:
   push:
     branches: [ "main" ]
   schedule:
-    - cron: '15 * * * *'  # (see https://crontab.guru)
+    - cron: '55 * * * *'  # (see https://crontab.guru)
 
 permissions:
   contents: read
