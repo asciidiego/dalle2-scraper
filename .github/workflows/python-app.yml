@@ -13,7 +13,7 @@ permissions:
   contents: read
 
 jobs:
-  build:
+  test:
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -32,3 +32,6 @@ jobs:
         conda activate dalle2-scraper
         conda info
         conda list
+    - name: test
+      run: |
+        python -m pytest
