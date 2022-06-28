@@ -24,6 +24,12 @@ jobs:
         activate-environment: dalle2-scraper
         environment-file: environment.yml
         python-version: 3.9
+    - name: activate environment
+      run: |
+        conda init bash
+        conda activate dalle2-scraper
+        conda info
+        conda list
     - name: Extract data
       env:
         CLIENT_ID: ${{ secrets.CLIENT_ID }}
@@ -42,7 +48,4 @@ jobs:
         # We may need to figure out how to upload files that have sensitive information
         # to the virtual machine using Github or another secrets manager such as AWS
         # FIREBASE_CREDENTIAL_CERTIFICATE_PATH=${{secrets.FIREBASE_CREDENTIAL_CERTIFICATE_PATH}}
-      run: |
-        conda init bash
-        conda activate dalle2-scraper
-        python extract.py
+      run: python extract.py
