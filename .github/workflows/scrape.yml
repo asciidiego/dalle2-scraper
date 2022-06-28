@@ -1,9 +1,6 @@
 name: run extractor on a schedule
 
 on:
-  # TODO: This is only for debugging. Remove when scheduled run works flawlessly
-  push:
-    branches: [ "main" ]
   schedule:
     - cron: '*/5 * * * *'  # (see https://crontab.guru)
 
