@@ -2,11 +2,13 @@
 Script to start the dalle2 generations extraction process.
 """
 
-import json
 import os
+
 from dotenv import load_dotenv
+import requests
 
 from extractor.algolia_storage import AlgoliaGenerationRepository
+from extractor.subreddit_crawler import SubredditCrawler
 
 
 if __name__ == "__main__":
@@ -18,17 +20,33 @@ if __name__ == "__main__":
         generation_index=os.getenv("ALGOLIA_STORAGE_INDEX"),
     )
 
-    # TODO: add reddit crawling module (to crawl OpenAI links from reddit)
-    # TODO: add openai scraping (to scrape dalle2 generation information from OpenAI)
+    crawler_config = {
+        "client_id": os.getenv("CLIENT_ID"),
+        "client_secret": os.getenv("CLIENT_SECRET"),
+        "user_agent": os.getenv("CLIENT_USER_AGENT"),
+        "reddit_username": os.getenv("REDDIT_USERNAME"),
+        "reddit_password": os.getenv("REDDIT_PASSWORD"),
+    }
+    crawler = SubredditCrawler("dalle2", **crawler_config)
 
-    with open("output.jsonl", "r") as f:
-        for line in f:
-            raw_item = json.loads(line)
-            generation_item = {
-                "objectID": raw_item["id"],
-                "image_path": raw_item["generation"]["image_path"],
-                "generation_prompt": raw_item["prompt"]["prompt"]["caption"],
-                "author_name": raw_item["user"]["name"],
-                "thumbnail_path": raw_item["generation"]["image_path"],
-            }
-            generation_repository.store_generation(generation_item)
+    openai_ids = crawler.crawl()
+
+    openai_generation_urls = map(
+        lambda i: f"https://labs.openai.com/api/labs/public/generations/generation-{i}",
+        openai_ids,
+    )
+
+    for generation_url in openai_generation_urls:
+        print(f"Generation URL: {generation_url}")
+
+        generation_info = requests.get(generation_url).json()
+
+        generation_item = {
+            "objectID": generation_info["id"],
+            "image_path": generation_info["generation"]["image_path"],
+            "generation_prompt": generation_info["prompt"]["prompt"]["caption"],
+            "author_name": generation_info["user"]["name"],
+            "thumbnail_path": generation_info["generation"]["image_path"],
+        }
+        
+        generation_repository.store_generation(generation_item)
