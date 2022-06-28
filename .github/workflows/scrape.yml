@@ -2,7 +2,7 @@ name: run extractor on a schedule
 
 on:
   schedule:
-    - cron: '*/15 * * * *'  # (see https://crontab.guru)
+    - cron: '49 * * * *'  # (see https://crontab.guru)
 
 permissions:
   contents: read
