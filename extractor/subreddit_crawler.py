@@ -25,7 +25,7 @@ class SubredditCrawler(Crawler):
 
         # Crawl OpenAI DALL-E links from dalle2 subreddit
         # Finds the submissions from the last hour
-        for submission in self._subreddit.search("*", sort="new", time_filter="hour"):
+        for submission in self._subreddit.search("*", sort="new", time_filter="day"):
             openai_links = set()
 
             url = submission.url
