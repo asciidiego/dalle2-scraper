@@ -14,9 +14,10 @@ permissions:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
+    defaults:
+      run:
+        shell: bash -l {0}
     steps:
     - uses: actions/checkout@v3
     - name: Setup Miniconda
@@ -27,6 +28,7 @@ jobs:
         python-version: 3.9
     - name: conda
       run: |
+        conda init bash
         conda activate dalle2-scraper
         conda info
         conda list
