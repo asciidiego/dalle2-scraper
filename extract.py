@@ -3,6 +3,7 @@ Script to start the dalle2 generations extraction process.
 """
 
 import os
+import logging
 
 from dotenv import load_dotenv
 import requests
@@ -41,12 +42,19 @@ if __name__ == "__main__":
 
         generation_info = requests.get(generation_url).json()
 
-        generation_item = {
-            "objectID": generation_info["id"],
-            "image_path": generation_info["generation"]["image_path"],
-            "generation_prompt": generation_info["prompt"]["prompt"]["caption"],
-            "author_name": generation_info["user"]["name"],
-            "thumbnail_path": generation_info["generation"]["image_path"],
-        }
-        
-        generation_repository.store_generation(generation_item)
+        try:
+            generation_item = {
+                "objectID": generation_info["id"],
+                "image_path": generation_info["generation"]["image_path"],
+                "generation_prompt": generation_info["prompt"]["prompt"]["caption"],
+                "author_name": generation_info["user"]["name"],
+                "thumbnail_path": generation_info["generation"]["image_path"],
+            }
+        except Exception as e:
+            logging.warn(
+                f"Could not store item (error and item debug information printed below)."
+            )
+            logging.warn(e)
+            logging.debug(generation_info)
+        else:
+            generation_repository.store_generation(generation_item)
