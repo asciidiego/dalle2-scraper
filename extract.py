@@ -51,10 +51,16 @@ if __name__ == "__main__":
                 "thumbnail_path": generation_info["generation"]["image_path"],
             }
         except Exception as e:
-            logging.warn(
-                f"Could not store item (error and item debug information printed below)."
+            logging.warning(
+                f"""
+Could not store item (error and item debug information printed below):
+
+Item information: {generation_info}
+
+====
+
+Error: {e}
+                """
             )
-            logging.warn(e)
-            logging.debug(generation_info)
         else:
             generation_repository.store_generation(generation_item)
