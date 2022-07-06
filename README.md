@@ -74,5 +74,5 @@ to get the following JSON response:
 }
 ```
 
-We can, then, store the response into a database for further
-processing.
+You can check more samples inside the `samples` folder. We can, then,
+store the response into a database for further processing.
