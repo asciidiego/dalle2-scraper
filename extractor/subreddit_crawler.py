@@ -1,6 +1,7 @@
 """
 Implementation of the `crawler` abstraction using Algolia.
 """
+import logging
 import re
 
 from .crawler import Crawler
@@ -19,33 +20,38 @@ class SubredditCrawler(Crawler):
         )
         self._subreddit = self._reddit_client.subreddit(subreddit)
 
-
     def crawl(self):
         openai_ids = set()
 
         # Crawl OpenAI DALL-E links from dalle2 subreddit
-        # Finds the submissions from the last hour
+        # See: https://praw.readthedocs.io/en/stable/code_overview/models/subreddit.html#praw.models.Subreddit.search
         for submission in self._subreddit.search("*", sort="new", time_filter="day"):
             openai_links = set()
 
             url = submission.url
-            permalink = submission.permalink
-            comments = submission.comments.list()
-
-            if "labs.openai" in url:
+            if "labs.openai.com/s" in url:
                 openai_links.add(url)
 
-            for comment in comments:
-                links = [
-                    link
-                    for link in re.findall(r"(https?://[^\s]+)", comment.body)
-                    if "labs.openai.com" in link
-                ]
-                for link in links:
+            comments = submission.comments.list()
+            # Traverse the Comment Tree so that the list contains only `Comment`
+            # instances.  Use `limit = None` so that all the `MoreComment` instances
+            # are processed.
+            comments.replace_more(limit=None)
+            comments_with_links = [c for c in comments if "labs.openai.com/s" in c.body]
+            for comment in comments_with_links:
+                for link in re.findall(r"(https?://[^\s]+)", comment.body):
                     openai_links.add(link)
 
+            # Parse the IDs from the links
             for link in openai_links:
-                openai_id = re.findall(r"s\/(\w+)", link)[0]
-                openai_ids.add(openai_id)
+                try:
+                    openai_id = re.findall(r"s\/(\w+)", link)[0]
+                except Exception as e:
+                    logging.error(
+                        f"ERROR: could not parse link: {link}\nError type: {e}"
+                    )
+                    continue
+                else:
+                    openai_ids.add(openai_id)
 
         return list(openai_ids)
