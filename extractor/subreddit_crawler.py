@@ -26,17 +26,19 @@ class SubredditCrawler(Crawler):
         # Crawl OpenAI DALL-E links from dalle2 subreddit
         # See: https://praw.readthedocs.io/en/stable/code_overview/models/subreddit.html#praw.models.Subreddit.search
         for submission in self._subreddit.search("*", sort="new", time_filter="day"):
+            print(f"scraping ({submission})...")
             openai_links = set()
 
             url = submission.url
             if "labs.openai.com/s" in url:
                 openai_links.add(url)
 
-            comments = submission.comments.list()
             # Traverse the Comment Tree so that the list contains only `Comment`
             # instances.  Use `limit = None` so that all the `MoreComment` instances
             # are processed.
-            comments.replace_more(limit=None)
+            comment_tree = submission.comments
+            comment_tree.replace_more(limit=None)
+            comments = comment_tree.list()
             comments_with_links = [c for c in comments if "labs.openai.com/s" in c.body]
             for comment in comments_with_links:
                 for link in re.findall(r"(https?://[^\s]+)", comment.body):
