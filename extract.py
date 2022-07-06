@@ -12,6 +12,8 @@ from extractor.algolia_storage import AlgoliaGenerationRepository
 from extractor.subreddit_crawler import SubredditCrawler
 
 
+# TODO: Refactor extract into run script with extract, load, and
+# transform subscripts.
 if __name__ == "__main__":
     load_dotenv()
 
@@ -32,17 +34,18 @@ if __name__ == "__main__":
 
     openai_ids = crawler.crawl()
 
-    openai_generation_urls = map(
-        lambda i: f"https://labs.openai.com/api/labs/public/generations/generation-{i}",
-        openai_ids,
-    )
+    OPEN_AI_BASE_URL = "https://labs.openai.com"
+    OPEN_AI_TEMPLATE_URL = f"{OPEN_AI_BASE_URL}/api/labs/public/generations/generation-"
+    openai_generation_urls = map(lambda i: f"{OPEN_AI_TEMPLATE_URL}{i}", openai_ids,)
 
     for generation_url in openai_generation_urls:
         print(f"Generation URL: {generation_url}")
 
-        generation_info = requests.get(generation_url).json()
-
         try:
+            response = requests.get(generation_url)
+            assert response.status_code == 200
+            generation_info = response.json()
+
             generation_item = {
                 "objectID": generation_info["id"],
                 "image_path": generation_info["generation"]["image_path"],
@@ -62,5 +65,6 @@ Item information: {generation_info}
 Error: {e}
                 """
             )
+            continue
         else:
             generation_repository.store_generation(generation_item)
