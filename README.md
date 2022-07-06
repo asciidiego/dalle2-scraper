@@ -5,6 +5,20 @@ done with DALL-E 2.
 
 # Usage
 
+## Conda environment
+
+Create or use a `conda` environment using the `environment.yml` file:
+
+```bash
+# create
+conda env create -f environment.yml
+
+# use
+conda activate dalle2-scraper
+```
+
+## Environment variables
+
 Create (and fill) the `.env` file based on the `.envdefault` file at the
 root of the repository. Then, execute the extraction script:
 
