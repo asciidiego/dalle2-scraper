@@ -26,3 +26,7 @@ class GenerationRepository(ABC):
 
         for attribute in required_attributes:
             assert attribute in generation, f"item has no {attribute} attribute."
+    
+    @abstractmethod
+    def get_generation(self, object_id):
+        pass

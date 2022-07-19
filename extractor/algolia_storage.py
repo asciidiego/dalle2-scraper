@@ -30,3 +30,7 @@ class AlgoliaGenerationRepository(GenerationRepository):
         print(f"Saving generation to Algolia. ID = {generation['objectID']}")
         self._generation_index.save_object(generation).wait()
         print("Done.\n")
+    
+    def get_generation(self, object_id):
+        super().get_generation(object_id)
+        return self._generation_index.get_object(object_id=object_id)
